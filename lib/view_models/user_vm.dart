@@ -21,4 +21,10 @@ class UserVM extends ChangeNotifier {
     _user = User();
     notifyListeners();
   }
+
+  Future<void> auth_login(String id, name) async {
+    User authUser = User.setUser(id, name);
+    _user = authUser;
+    notifyListeners();
+  }
 }

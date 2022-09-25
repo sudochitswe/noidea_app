@@ -13,7 +13,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _key = GlobalKey();
-  String? email, password;
+  String? _email, _password;
+  void _loginButtonSubmit(String email, String password) {
+    if (email != "" || password != "") {
+      Provider.of<UserVM>(context, listen: false)
+          .auth_login(_email!, _password);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Fill all blank Text Field!.'),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                       textAlignVertical: TextAlignVertical.center,
                       textInputAction: TextInputAction.next,
                       onSaved: (String? val) {
-                        email = val;
+                        _email = val;
                       },
                       style: const TextStyle(fontSize: 18.0),
                       keyboardType: TextInputType.emailAddress,
@@ -55,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       validator: validatePassword,
                       onSaved: (String? val) {
-                        password = val;
+                        _password = val;
                       },
                       onFieldSubmitted: (password) => {},
                       textInputAction: TextInputAction.done,
@@ -108,26 +119,60 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onPressed: () => {
-                      Provider.of<UserVM>(context, listen: false)
-                          .simulateLogin("yes", "Mr.Yes")
-                      // context
-                      //   .read<LoginBloc>()
-                      //   .add(ValidateLoginFieldsEvent(_key))
+                      _key.currentState?.save(),
+                      _loginButtonSubmit(_email!, _password!)
                     },
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(32.0),
-                //   child: Center(
-                //     child: Text(
-                //       'OR',
-                //       style: TextStyle(
-                //           color: isDarkMode(context)
-                //               ? Colors.white
-                //               : Colors.black),
-                //     ),
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Center(
+                    child: Text(
+                      'OR',
+                      style: TextStyle(
+                          color: isDarkMode(context)
+                              ? Colors.white
+                              : Colors.black),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.all(12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: const Color.fromRGBO(103, 58, 183, 1),
+                        ),
+                        onPressed: () => {
+                          _key.currentState?.save(),
+                          _loginButtonSubmit(_email!, _password!)
+                        },
+                        icon: Icon(Icons.phone_iphone_outlined),
+                        label: Text("Sign up with phone"),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.all(12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: const Color.fromRGBO(103, 58, 183, 1),
+                        ),
+                        onPressed: () => {},
+                        icon: Icon(Icons.facebook),
+                        label: Text("Login with Facebook"),
+                      ),
+                    ],
+                  ),
+                )
                 // Padding(
                 //   padding: const EdgeInsets.only(
                 //       right: 40.0, left: 40.0, bottom: 20),
