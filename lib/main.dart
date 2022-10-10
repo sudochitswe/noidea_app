@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/pages/home_page.dart';
 import 'package:flutter_complete_guide/pages/login_page.dart';
+import 'package:flutter_complete_guide/pages/main_layout.dart';
+import 'package:flutter_complete_guide/view_models/default_layout_vm.dart';
 import 'package:flutter_complete_guide/view_models/user_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -15,23 +16,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserVM())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserVM(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DefaultLayoutVM(),
+        )
+      ],
       child: Consumer<UserVM>(
         builder: (context, userData, child) => MaterialApp(
           title: 'Dummy App',
+          // theme: ThemeData.light(),
           theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
-            primarySwatch: Colors.deepPurple,
+            primarySwatch: Colors.amber,
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              selectedItemColor: Colors.blueAccent,
+            ),
           ),
-          home: userData.isAuth ? const HomePage() : LoginPage(),
+          home: userData.isAuth ? const MainLayout() : LoginPage(),
         ),
       ),
     );

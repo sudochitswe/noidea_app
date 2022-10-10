@@ -189,10 +189,11 @@ InputDecoration getInputDecoration(
     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     fillColor: darkMode ? Colors.black54 : Colors.white,
     hintText: hint,
+    labelText: hint,
     focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25.0),
-        borderSide: const BorderSide(
-            color: Color.fromRGBO(103, 58, 183, 1), width: 2.0)),
+      borderRadius: BorderRadius.circular(25.0),
+      borderSide: BorderSide(width: 2.0),
+    ),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: errorColor),
       borderRadius: BorderRadius.circular(25.0),
