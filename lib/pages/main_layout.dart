@@ -18,7 +18,8 @@ class MainLayout extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Settigs"),
           ],
-          type: BottomNavigationBarType.fixed,
+          // type: BottomNavigationBarType.shifting,
+          //unselectedItemColor: Colors.black45,
           iconSize: 24,
           currentIndex: defaultLayout.selectPageIndex,
           onTap: (index) => defaultLayout.selectBottomNavigator(index),
@@ -27,21 +28,21 @@ class MainLayout extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomNavBar(BuildContext context) {
-    return Consumer<DefaultLayoutVM>(
-      builder: (context, value, child) => BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.notifications), label: "Notification"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settigs"),
-        ],
-        type: BottomNavigationBarType.fixed,
-        iconSize: 24,
-        currentIndex: value.selectPageIndex,
-        onTap: (index) => value.selectBottomNavigator(index),
-        backgroundColor: Colors.blueGrey,
-      ),
-    );
-  }
+  // Widget _buildBottomNavBar(BuildContext context) {
+  //   return Consumer<DefaultLayoutVM>(
+  //     builder: (context, value, child) => BottomNavigationBar(
+  //       items: const [
+  //         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+  //         BottomNavigationBarItem(
+  //             icon: Icon(Icons.notifications), label: "Notification"),
+  //         BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settigs"),
+  //       ],
+  //       type: BottomNavigationBarType.fixed,
+  //       iconSize: 24,
+  //       currentIndex: value.selectPageIndex,
+  //       onTap: (index) => value.selectBottomNavigator(index),
+  //       backgroundColor: Colors.blueGrey,
+  //     ),
+  //   );
+  // }
 }

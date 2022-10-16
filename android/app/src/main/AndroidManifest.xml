@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ramdom_app">
    <application
-        android:label="ramdom_app"
+        android:label="MyPay"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

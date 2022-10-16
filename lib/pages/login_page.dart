@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/result_status.dart';
-import 'package:flutter_complete_guide/widgets/user_image_picker.dart';
+import 'package:flutter_complete_guide/pages/user_signup_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/user_image_picker.dart';
 import '../helper/size_config.dart';
 import '../view_models/user_vm.dart';
 import '../helper/helper.dart';
@@ -19,14 +20,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _key = GlobalKey();
   String? _email, _password;
-  XFile? _userImageFile;
+  // XFile? _userImageFile;
   TextEditingController userInput = TextEditingController();
   String text = "";
-  void _pickedImage(XFile? image) {
-    setState(() {
-      _userImageFile = image;
-    });
-  }
+  // void _pickedImage(XFile? image) {
+  //   setState(() {
+  //     _userImageFile = image;
+  //   });
+  // }
 
   void _loginButtonSubmit(String email, String password) async {
     var userPvd = Provider.of<UserVM>(context, listen: false);
@@ -61,11 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                         TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
                 ),
-                UserImagePicker(_pickedImage, ""),
+                // UserImagePicker(_pickedImage, ""),
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 32.0, right: 24.0, left: 24.0),
                   child: TextFormField(
+                      initialValue: "chitswe.dev@gmail.com",
                       textAlignVertical: TextAlignVertical.center,
                       textInputAction: TextInputAction.next,
                       onSaved: (String? val) {
@@ -82,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding:
                       const EdgeInsets.only(top: 32.0, right: 24.0, left: 24.0),
                   child: TextFormField(
+                      initialValue: "Temporary123",
                       textAlignVertical: TextAlignVertical.center,
                       obscureText: true,
                       validator: validatePassword,
@@ -118,41 +121,52 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(right: 40.0, left: 40.0, top: 40),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.only(top: 12, bottom: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: getElevatedButtonStyle(context),
+                        child: const Text(
+                          'Log In',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () => {
+                          _key.currentState?.save(),
+                          _loginButtonSubmit(_email!, _password!)
+                        },
                       ),
-                    ),
-                    child: const Text(
-                      'Log In',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Center(
+                          child: Text(
+                            'OR',
+                            style: TextStyle(
+                                color: isDarkMode(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                        ),
                       ),
-                    ),
-                    onPressed: () => {
-                      _key.currentState?.save(),
-                      _loginButtonSubmit(_email!, _password!)
-                    },
+                      ElevatedButton(
+                        style: getElevatedButtonStyle(context),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () => {
+                          Navigator.pushNamed(
+                              context, UserSignUpPage.routeName),
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Text(
-                      'OR',
-                      style: TextStyle(
-                          color: isDarkMode(context)
-                              ? Colors.white
-                              : Colors.black),
-                    ),
-                  ),
-                ),
+                )
                 // Container(
                 //   padding: EdgeInsets.symmetric(horizontal: 10),
                 //   child: Row(

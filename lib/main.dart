@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/pages/login_page.dart';
 import 'package:flutter_complete_guide/pages/main_layout.dart';
+import 'package:flutter_complete_guide/pages/user_signup_page.dart';
 import 'package:flutter_complete_guide/view_models/default_layout_vm.dart';
 import 'package:flutter_complete_guide/view_models/user_vm.dart';
 import 'package:provider/provider.dart';
@@ -26,15 +27,25 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<UserVM>(
         builder: (context, userData, child) => MaterialApp(
-          title: 'Dummy App',
+          title: 'MyPay',
           // theme: ThemeData.light(),
           theme: ThemeData(
-            primarySwatch: Colors.amber,
+            // brightness: Brightness.dark,
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Color.fromRGBO(255, 229, 18, 1),
+              primary: Color.fromRGBO(255, 229, 18, 1),
+              secondary: Color.fromRGBO(0, 145, 210, 1),
+            ),
+            // primarySwatch: Colors.amber,
             bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              selectedItemColor: Colors.blueAccent,
+              selectedItemColor: Theme.of(context).colorScheme.secondary,
             ),
           ),
           home: userData.isAuth ? const MainLayout() : LoginPage(),
+          routes: {
+            UserSignUpPage.routeName: (context) => UserSignUpPage(),
+          },
         ),
       ),
     );

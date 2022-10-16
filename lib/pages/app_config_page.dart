@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/helper/helper.dart';
 import 'package:provider/provider.dart';
 
 import '../view_models/user_vm.dart';
@@ -18,8 +19,10 @@ class AppConfigPage extends StatelessWidget {
             child: Column(
               children: [
                 ElevatedButton(
-                    onPressed: () => value.simulateLogout(),
-                    child: Text("Log Out"))
+                  onPressed: () => value.simulateLogout(),
+                  style: getElevatedButtonStyle(context),
+                  child: Text("Log Out"),
+                )
               ],
             ),
           ),

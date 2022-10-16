@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/helper/size_config.dart';
 
 String? validateName(String? value) {
   String pattern = r'(^[a-zA-Z ]*$)';
@@ -183,6 +184,17 @@ bool isDarkMode(BuildContext context) {
   }
 }
 
+ButtonStyle getElevatedButtonStyle(BuildContext context) {
+  return ElevatedButton.styleFrom(
+    padding: EdgeInsets.symmetric(
+        horizontal: getProportionateScreenWidth(60), vertical: 12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(25.0),
+    ),
+    primary: Theme.of(context).colorScheme.secondary,
+  );
+}
+
 InputDecoration getInputDecoration(
     {required String hint, required bool darkMode, required Color errorColor}) {
   return InputDecoration(
@@ -190,6 +202,13 @@ InputDecoration getInputDecoration(
     fillColor: darkMode ? Colors.black54 : Colors.white,
     hintText: hint,
     labelText: hint,
+    labelStyle: TextStyle(
+      color: Colors.lightBlue,
+    ),
+    // border: OutlineInputBorder(
+    //   borderRadius: BorderRadius.circular(25.0),
+    //   borderSide: BorderSide(color: Colors.lightBlue),
+    // ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(25.0),
       borderSide: BorderSide(width: 2.0),

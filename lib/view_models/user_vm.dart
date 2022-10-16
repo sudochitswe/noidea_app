@@ -43,6 +43,24 @@ class UserVM extends ChangeNotifier {
     return statusInfo;
   }
 
+  Future<ResultStatus> pocketBaseUserEmailSignup(
+      String email, String password) async {
+    try {
+      UserService pocketBaseUserSvc = UserService(MAIN_POCKET_BASE);
+
+      UserModel model = await pocketBaseUserSvc.client.users.create();
+      print(model);
+      _result.status = true;
+      _result.message = "";
+      notifyListeners();
+    } on ClientException catch (e) {
+      print(e.response["message"]);
+      _result.status = false;
+      _result.message = e.response["message"];
+    }
+    return statusInfo;
+  }
+
   void simulateLogout() {
     // _user = User();
     _adminAuthModel = AdminAuth();
